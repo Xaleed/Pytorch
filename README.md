@@ -85,7 +85,7 @@ Well, I think many questions come for beginners after going through these steps,
 ```math
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
 ```
-For solving this optimization problem, we can implement the gradient descent algorithm as follows:
+step sizes $t_k$ chosen to be fixed and small. For solving this optimization problem, we can implement the gradient descent algorithm as follows:
 
 > **Algorithm**:
 >> input: initial guess $\boldsymbol{\theta}^{(0)}$, step size $t$ (let $t_k$ be constant for all $k$);
@@ -94,7 +94,7 @@ $ \,\,\,\,\,\,\,\,\,\,\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\fr
 end for
 return $\boldsymbol{\theta}^{(k)}$ ;
 
-Now with this optimization problem, think about ```epoch``` and ```lr``` in the mentioned Python code.
+
 Now, with this optimization problem, think about the relation between ```k``` and ```t```  with ```epoch``` and ```lr```  in the aforementioned Python code.
 
 Now, I want applied the GD algorithm to the above regression example. As we all know, we need to find $\hat{y}=\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3 $ such that $L(\theta_0,\theta_1,\theta_2,\theta_3) =\frac{1}{n} \sum_{i=1}^n(\hat{y}_i-y_i)^2$ is minimized. It is easy to see that
@@ -106,7 +106,12 @@ or in an equivalent formula
 ```math
 \frac{\partial L}{\partial\boldsymbol{\theta}}=\frac{2}{n}X^T\times(\hat{y}-y)
 ```
-Now let's convert GD algorithm into code. At first we need create a data set Once again:
+Now, continue the following recursive algorithm until convergence:
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
+```
+where c is orbitrary constant.
+Let's convert GD algorithm into code. At first we need create a data set Once again:
 
 
 useful links: [(1)](https://towardsdatascience.com/linear-regression-using-gradient-descent-97a6c8700931), [(2)](https://matgomes.com/gradient-descent-for-linear-regression-in-python/)
@@ -129,3 +134,14 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
+Well, I'm not talking about DDD yet and I don't want to.  because I think you could easily study it with [this](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf) reference. 
+For this short article, I studied and used the following works:
+* [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
+* [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)
+* LeCun Y, Bengio Y, Hinton G. Deep learning. nature. 2015 May 28;521(7553):436-44. (section 5.9)
+* [Gradient Descent For Linear Regression In Python](https://matgomes.com/gradient-descent-for-linear-regression-in-python/)
+* [Gradient Descent Algorithm and Its Variants](https://towardsdatascience.com/gradient-descent-algorithm-and-its-variants-10f652806a3)
+* [How Does the Gradient Descent Algorithm Work in Machine Learning?](https://www.analyticsvidhya.com/blog/2020/10/how-does-the-gradient-descent-algorithm-work-in-machine-learning/)
+* [Building a Regression Model in PyTorch](https://machinelearningmastery.com/building-a-regression-model-in-pytorch/)
+* [Differences Between Epoch, Batch, and Mini-batch](https://www.baeldung.com/cs/epoch-vs-batch-vs-mini-batch)
+* [Difference Between a Batch and an Epoch in a Neural Network](https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/)

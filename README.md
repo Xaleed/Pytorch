@@ -1,4 +1,5 @@
 # PyTorch
+PyTorch is a library for Python programs that facilitates building deep learning projects. It emphasizes flexibility and allows deep learning models to be expressed in idiomatic Python. In this article, I’ll write about how to implement a simple linear regression model using PyTorch.
 ## Table of contents
 * [Motivation](#Motivation)
 * [Data](#Data)
@@ -10,7 +11,7 @@
 Hi, it's been two hours since I woke up and had breakfast, and the good news is that we have a four-day holiday in Iran. Well, I want to enjoy this vacation so I decided to prepare some content about PyTorch and shared it on LinkedIn. Honestly, this is a motivation for me to write about PyTorch.
 	
 ## Data
-At first, I create a dataset with three independent variables and one dependent variable to fit a regression model using Pytorch. I do this in two ways:
+At first, I create a dataset with three independent and one dependent variables to fit a regression model using Pytorch. I do this in two ways:
 ```
 X1 = np.random.normal(0, 1, size=(100, 1)) 
 X2 = np.random.normal(0, 1, size=(100, 1)) 
@@ -39,7 +40,7 @@ df = pd.DataFrame(data)
 df
 ```
 ## Linear Regression Model
-I define a simple linear regression model:
+Regression model:
 ```
 InputDim = 3
 OutputDim = 1
@@ -75,21 +76,21 @@ Y_Test = y1.reshape((-1, 1))
 yhat = linear_model(X_Test)
 criterion(yhat, Y_Test)
 ```
-Well, I think many questions come for beginners after going through these steps, for example, what is SGD, lr, epoch and ... ? For answered some of these questions, I start with SGD. SGD stands for Stochastic Gradient Descent that is the common optimization algorithm in deep learning.
+Well, I think many questions come for beginners after going through these steps, for example, what is SGD, lr, epoch and ... ? For answered some of these questions, I start with the GD algorithm. GD stands for Gradient Descent algorithm that is the common optimization algorithm in deep learning.
  ### Gradient Descent Algorithm
  Consider the followng optimization problem:
  ```math
  \underset{\boldsymbol{\theta}}{min}\frac{1}{n}\sum_{i=1}^{n}f_{i}(\boldsymbol{\theta})
  ```
- As $ \nabla \sum_{i=1}^{n}f_{i}(\boldsymbol{\theta}) = \sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta})$,  gradient descent would repeat:
+ As $$ \nabla \sum_{i=1}^{n}f_{i}(\boldsymbol{\theta}) = \sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}),$$  gradient descent would repeat:
 ```math
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
 ```
 step sizes $t_k$ chosen to be fixed and small. For solving this optimization problem, we can implement the gradient descent algorithm as follows:
 
-> **Algorithm**:
->> input: initial guess $\boldsymbol{\theta}^{(0)}$, step size $t$ (let $t_k$ be constant for all $k$);
->>for $k =  1, 2, · · · $ do
+ **Algorithm**:
+*  input: initial guess $\boldsymbol{\theta}^{(0)}$, step size $t$ (let $t_k$ be constant for all $k$);
+* for $k =  1, 2, · · · $ do
 $ \,\,\,\,\,\,\,\,\,\,\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})$
 end for
 return $\boldsymbol{\theta}^{(k)}$ ;
@@ -97,24 +98,27 @@ return $\boldsymbol{\theta}^{(k)}$ ;
 
 Now, with this optimization problem, think about the relation between ```k``` and ```t```  with ```epoch``` and ```lr```  in the aforementioned Python code.
 
-Now, I want applied the GD algorithm to the above regression example. As we all know, we need to find $\hat{y}=\theta_0+\theta_1x_1+\theta_2x_2+\theta_3x_3 $ such that $L(\theta_0,\theta_1,\theta_2,\theta_3) =\frac{1}{n} \sum_{i=1}^n(\hat{y}_i-y_i)^2$ is minimized. It is easy to see that
+Ok, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
 ```math
-\frac{\partial L}{\partial\theta_{0}}=\frac{2}{n}\sum_{i=1}^{n}(\hat{y}_{i}-y_{i})\\
+L(\hat{\theta_0},\hat{\theta_1},\hat{\theta_2},\hat{\theta_3}) =\frac{1}{n} \sum_{i=1}^n(\hat{y}_i-y_i)^2=\min_{\boldsymbol{\theta}}L(\theta_0,\theta_1,\theta_2,\theta_3)
+``` 
+ It is easy to see that
+```math
+\frac{\partial L}{\partial\theta_{0}}=\frac{2}{n}\sum_{i=1}^{n}(\hat{y}_{i}-y_{i}),\\
 \frac{\partial L}{\partial\theta_{k}}=\frac{2}{n}\sum_{i=1}^{n}x_{ki}(\hat{y}_{i}-y_{i})=\frac{2}{n}X_k^T\times(\hat{y}-y)\qquad k=1,2,3
 ```
 or in an equivalent formula
 ```math
 \frac{\partial L}{\partial\boldsymbol{\theta}}=\frac{2}{n}X^T\times(\hat{y}-y)
 ```
-Now, continue the following recursive algorithm until convergence:
+Then, continue the following recursive algorithm until convergence:
 ```math
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
 ```
 where c is orbitrary constant.
-Let's convert GD algorithm into code. At first we need create a data set Once again:
+Let's convert GD algorithm into code. At first we need create a data set once again:
 
 
-useful links: [(1)](https://towardsdatascience.com/linear-regression-using-gradient-descent-97a6c8700931), [(2)](https://matgomes.com/gradient-descent-for-linear-regression-in-python/)
 ```
 X = torch.normal(0, 1, (1000, 3))
 y = torch.matmul(X, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0, torch.Size([1000]))/1000000
@@ -134,8 +138,8 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
-Well, I'm not talking about DDD yet and I don't want to.  because I think you could easily study it with [this](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf) reference. 
-For this short article, I studied and used the following works:
+
+For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)
 * LeCun Y, Bengio Y, Hinton G. Deep learning. nature. 2015 May 28;521(7553):436-44. (section 5.9)

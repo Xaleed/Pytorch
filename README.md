@@ -1,7 +1,8 @@
 # PyTorch
-PyTorch is a library for Python programs that facilitates building deep learning projects. It emphasizes flexibility and allows deep learning models to be expressed in idiomatic Python. In this article, I’ll write about how to implement a simple linear regression model using PyTorch.
+PyTorch is a library for Python programs that facilitates building deep learning projects. It emphasizes flexibility and allows deep learning models to be expressed in idiomatic Python. In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
 ## Table of contents
 * [Motivation](#Motivation)
+* [import libraries](#import-libraries)
 * [Data](#Data)
 * [Linear Regression Model](#Linear-Regression-Model)
   * [Gradient Descent Algorithm](#Gradient-Descent-Algorithm)
@@ -9,7 +10,15 @@ PyTorch is a library for Python programs that facilitates building deep learning
 
 ## Motivation
 Hi, it's been two hours since I woke up and had breakfast, and the good news is that we have a four-day holiday in Iran. Well, I want to enjoy this vacation so I decided to prepare some content about PyTorch and shared it on LinkedIn. Honestly, this is a motivation for me to write about PyTorch.
-	
+## import libraries
+```
+#Import library
+import torch
+from torch import nn
+import numpy as np
+from torch.autograd import Variable
+import pandas as pd
+```
 ## Data
 At first, I create a dataset with three independent and one dependent variables to fit a regression model using Pytorch. I do this in two ways:
 ```
@@ -49,8 +58,8 @@ class LinearRegression(torch.nn.Module):
         super(LinearRegression, self).__init__() 
         self.linear = torch.nn.Linear(InputDim, OutputDim)  
     def forward(self, x): 
-        predict_y = self.linear(x) 
-        return predict_y 
+        y_hat = self.linear(x) 
+        return y_hat 
 linear_model = LinearRegression()
 ```
 Mean squared error is considered as a loss function and for optimization, the SGD method is implemented:
@@ -138,7 +147,7 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
-
+Now let's go back to the part where the model is executed with PyTorch. I think the content has become clearer.
 For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)

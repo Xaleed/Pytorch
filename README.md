@@ -1,5 +1,6 @@
 # PyTorch
-PyTorch is a library for Python programs that facilitates building deep learning projects. It emphasizes flexibility and allows deep learning models to be expressed in idiomatic Python. In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that uses the power of graphics processing units (GPUs) and deep learning techniques to provide maximum flexibility and speed. You can install PyTorch via pip and start using it on your local machine. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+I believe that in order to find answers to all the questions that arise when implementing a model with some packages in a programming language, you need to understand the theory behind what that package does. This knowledge can help you understand how the model works and how to optimize it for better performance. So, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
 ## Table of contents
 * [Motivation](#Motivation)
 * [import libraries](#import-libraries)
@@ -9,7 +10,7 @@ PyTorch is a library for Python programs that facilitates building deep learning
 * [Logistic Regression](#Logistic-Regression)
 
 ## Motivation
-Hi, it's been two hours since I woke up and had breakfast, and the good news is that we have a four-day holiday in Iran. Well, I want to enjoy this vacation so I decided to prepare some content about PyTorch and shared it on LinkedIn. Honestly, this is a motivation for me to write about PyTorch.
+I enjoy writing about statistics and math topics! It’s so interesting to learn about how these concepts apply to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
 ## import libraries
 ```
 #Import library

@@ -1,6 +1,6 @@
 # PyTorch
-PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that uses the power of graphics processing units (GPUs) and deep learning techniques to provide maximum flexibility and speed. You can install PyTorch via pip and start using it on your local machine. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
-I believe that in order to find answers to all the questions that arise when implementing a model with some packages in a programming language, you need to understand the theory behind what that package does. This knowledge can help you understand how the model works and how to optimize it for better performance. So, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
+PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that uses the power of graphics processing units (GPUs) and deep learning techniques to provide maximum flexibility and speed. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+I believe that in order to find answers to all the questions that arise when implementing a model with some packages in a programming language, you need to know a little about the theory behind what that package does. With this perspective, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
 ## Table of contents
 * [Motivation](#Motivation)
 * [import libraries](#import-libraries)
@@ -65,12 +65,12 @@ class LinearRegression(torch.nn.Module):
         return y_hat 
 linear_model = LinearRegression()
 ```
-Mean squared error is considered as a loss function and for optimization, the SGD method is implemented:
+Mean squared error is considered as the loss function and the GD algorithm is implemented for optimization
 ```
 criterion = torch.nn.MSELoss(reduction='sum')
 Optimizer = torch.optim.SGD(linear_model.parameters(), lr=0.0001)
 ```
-The definded model is trained with the following script:
+The following script is used to train the defined model:
 ```
 for epoch in range(500): 
     yhat = linear_model(X_Train)
@@ -80,7 +80,7 @@ for epoch in range(500):
     Optimizer.step() 
     print('epoch {}, loss function {}'.format(epoch, loss.item()))
 ```
-Now, we can test the trained model:
+And, we can test the trained model:
 ```
 X_Test  = torch.normal(0, 1, (1, 3))
 y1 = torch.matmul(X_Test, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0,torch.Size([1]))
@@ -108,7 +108,7 @@ end for
 return $\boldsymbol{\theta}^{(k)}$ ;
 
 
-Now, with this optimization problem, think about the relation between ```k``` and ```t```  with ```epoch``` and ```lr```  in the aforementioned Python code.
+By considering this optimization problem, we can think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier.
 
 Ok, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
 ```math
@@ -150,7 +150,7 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
-Now let's go back to the part where the model is executed with PyTorch. I think the content has become clearer.
+Let’s go back to the part where we execute the model with PyTorch and read it once more. I believe that the content has become clearer now.
 For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)

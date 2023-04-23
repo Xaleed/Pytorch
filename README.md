@@ -39,10 +39,12 @@ df
 Also, we can create similar data set by using torch:
 ```
 
-X_Train  = torch.normal(0, 1, (1000, 3))
-y = torch.matmul(X, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0, torch.Size([1000]))
+X = torch.normal(0, 1, (1000, 3))
+y = torch.matmul(X, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0, torch.Size([1000]))/1000000
 ############
-Y_Train = y.reshape((-1, 1))
+Y = y.reshape((-1, 1))
+X_Train = X
+Y_Train = Y
 
 data = {"X1" : X.numpy()[:,0], "X2" : X.numpy()[:,1], "X3" : X.numpy()[:,2], "Y" : y}
 df = pd.DataFrame(data)  

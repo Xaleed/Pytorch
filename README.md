@@ -102,9 +102,11 @@ step sizes $t_k$ chosen to be fixed and small. For solving this optimization pro
 
  **Algorithm**:
 *  input: initial guess $\boldsymbol{\theta}^{(0)}$, step size $t$ (let $t_k$ be constant for all $k$);
-* for $k =  1, 2, · · · $ do
-$ \,\,\,\,\,\,\,\,\,\,\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})$
-end for
+* for $k =  1, 2, · · · $ do: 
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})
+```
+end
 return $\boldsymbol{\theta}^{(k)}$ ;
 
 

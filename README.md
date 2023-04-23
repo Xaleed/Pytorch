@@ -153,7 +153,8 @@ for epoch in range(epochs):
     par = par - lr*grad
 ```
 Let’s go back to the part where we execute the model with PyTorch and read it once more. I believe that the content has become clearer now.
-For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
+
+For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. Also, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I would be delighted if you could add something to it.
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)
 * LeCun Y, Bengio Y, Hinton G. Deep learning. nature. 2015 May 28;521(7553):436-44. (section 5.9)

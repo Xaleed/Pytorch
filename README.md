@@ -80,7 +80,7 @@ for epoch in range(500):
     Optimizer.step() 
     print('epoch {}, loss function {}'.format(epoch, loss.item()))
 ```
-And, we can test the trained model:
+Now, we can test the trained model:
 ```
 X_Test  = torch.normal(0, 1, (1, 3))
 y1 = torch.matmul(X_Test, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0,torch.Size([1]))
@@ -106,11 +106,11 @@ step sizes $t_k$ chosen to be fixed and small. For solving this optimization pro
 ```math
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})
 ```
-end
-return $\boldsymbol{\theta}^{(k)}$ ;
+
+* return $\boldsymbol{\theta}^{(k)}$ ;
 
 
-By considering this optimization problem, we can think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier.
+By considering this optimization problem,  think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier. Did you find any relation?
 
 Ok, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
 ```math
@@ -130,7 +130,7 @@ Then, continue the following recursive algorithm until convergence:
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
 ```
 where c is orbitrary constant.
-Let's convert GD algorithm into code. At first we need create a data set once again:
+Now with these explanations we can convert GD algorithm into code. At first we need create a data set once again:
 
 
 ```
@@ -154,7 +154,8 @@ for epoch in range(epochs):
 ```
 Let’s go back to the part where we execute the model with PyTorch and read it once more. I believe that the content has become clearer now.
 
-For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. Also, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I would be delighted if you could add something to it.
+For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. Also, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I will be glad if you add something to it.
+
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)
 * LeCun Y, Bengio Y, Hinton G. Deep learning. nature. 2015 May 28;521(7553):436-44. (section 5.9)

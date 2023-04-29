@@ -1,5 +1,6 @@
 # PyTorch
-PyTorch is a library for Python programs that facilitates building deep learning projects. It emphasizes flexibility and allows deep learning models to be expressed in idiomatic Python. In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that uses the power of graphics processing units (GPUs) and deep learning techniques to provide maximum flexibility and speed. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+I believe that in order to find answers to all the questions that arise when implementing a model with some packages in a programming language, you need to know a little about the theory behind what that package does. With this perspective, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
 ## Table of contents
 * [Motivation](#Motivation)
 * [import libraries](#import-libraries)
@@ -9,7 +10,7 @@ PyTorch is a library for Python programs that facilitates building deep learning
 * [Logistic Regression](#Logistic-Regression)
 
 ## Motivation
-Hi, it's been two hours since I woke up and had breakfast, and the good news is that we have a four-day holiday in Iran. Well, I want to enjoy this vacation so I decided to prepare some content about PyTorch and shared it on LinkedIn. Honestly, this is a motivation for me to write about PyTorch.
+I enjoy writing about statistics and math topics! It’s so interesting to learn about how these concepts apply to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
 ## import libraries
 ```
 #Import library
@@ -64,12 +65,12 @@ class LinearRegression(torch.nn.Module):
         return y_hat 
 linear_model = LinearRegression()
 ```
-Mean squared error is considered as a loss function and for optimization, the SGD method is implemented:
+Mean squared error is considered as the loss function and the GD algorithm is implemented for optimization
 ```
 criterion = torch.nn.MSELoss(reduction='sum')
 Optimizer = torch.optim.SGD(linear_model.parameters(), lr=0.0001)
 ```
-The definded model is trained with the following script:
+The following script is used to train the defined model:
 ```
 for epoch in range(500): 
     yhat = linear_model(X_Train)
@@ -101,13 +102,15 @@ step sizes $t_k$ chosen to be fixed and small. For solving this optimization pro
 
  **Algorithm**:
 *  input: initial guess $\boldsymbol{\theta}^{(0)}$, step size $t$ (let $t_k$ be constant for all $k$);
-* for $k =  1, 2, · · · $ do
-$ \,\,\,\,\,\,\,\,\,\,\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})$
-end for
-return $\boldsymbol{\theta}^{(k)}$ ;
+* for $k =  1, 2, · · · $ do: 
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)})
+```
+
+* return $\boldsymbol{\theta}^{(k)}$ ;
 
 
-Now, with this optimization problem, think about the relation between ```k``` and ```t```  with ```epoch``` and ```lr```  in the aforementioned Python code.
+By considering this optimization problem,  think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier. Did you find any relation?
 
 Ok, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
 ```math
@@ -127,7 +130,7 @@ Then, continue the following recursive algorithm until convergence:
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
 ```
 where c is orbitrary constant.
-Let's convert GD algorithm into code. At first we need create a data set once again:
+Now with these explanations we can convert GD algorithm into code. At first we need create a data set once again:
 
 
 ```
@@ -149,8 +152,10 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
-Now let's go back to the part where the model is executed with PyTorch. I think the content has become clearer.
-For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
+Let’s go back to the part where we execute the model with PyTorch and read it once more. I believe that the content has become clearer now.
+
+For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. Also, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I will be glad if you add something to it.
+
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)
 * LeCun Y, Bengio Y, Hinton G. Deep learning. nature. 2015 May 28;521(7553):436-44. (section 5.9)

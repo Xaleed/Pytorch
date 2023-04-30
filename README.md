@@ -170,4 +170,4 @@ For this short article, I studied and used the following works. I tried to write
  ## Logistic Regression
   ### With a created data set
   ### With a real data set
-  
+  Consider per-minute data on dogecoin transactions for three months. In this section, we applied the logistic regression model based on Stochastic gradient descent using the PyTorch library.

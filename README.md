@@ -8,6 +8,8 @@ I believe that in order to find answers to all the questions that arise when imp
 * [Linear Regression Model](#Linear-Regression-Model)
   * [Gradient Descent Algorithm](#Gradient-Descent-Algorithm)
 * [Logistic Regression](#Logistic-Regression)
+  * [With a created data set](#With-a-created-data-set)
+  * [With a real data set](#With-a-real-data-set)
 
 ## Motivation
 I enjoy writing about statistics and math topics! It’s so interesting to learn about how these concepts apply to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
@@ -165,3 +167,7 @@ For this short article, I studied and used the following works. I tried to write
 * [Building a Regression Model in PyTorch](https://machinelearningmastery.com/building-a-regression-model-in-pytorch/)
 * [Differences Between Epoch, Batch, and Mini-batch](https://www.baeldung.com/cs/epoch-vs-batch-vs-mini-batch)
 * [Difference Between a Batch and an Epoch in a Neural Network](https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/)
+ ## Logistic Regression
+  ### With a created data set
+  ### With a real data set
+  

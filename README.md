@@ -1,6 +1,6 @@
 # PyTorch
-PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that uses the power of graphics processing units (GPUs) and deep learning techniques to provide maximum flexibility and speed. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
-I believe that in order to find answers to all the questions that arise when implementing a model with some packages in a programming language, you need to know a little about the theory behind what that package does. With this perspective, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
+PyTorch is an open-source machine learning framework. It is a Python-based scientific computing package that adopts the power of graphics processing units (GPUs) and deep learning techniques to proffer maximum flexibility and speed. [You can find more information about PyTorch on their official website](https://pytorch.org/). In this post, I’ll write about how to implement a simple linear regression model using PyTorch.
+Admittedly, in order to find answers to all the questions that arise when implementing a model with some packages in a programming language we need to know a little bit about the theory behind what that package does. With this perspective, let’s talk about performing a linear regression model with PyTorch and answer some questions about it.
 ## Table of contents
 * [Motivation](#Motivation)
 * [import libraries](#import-libraries)
@@ -12,7 +12,7 @@ I believe that in order to find answers to all the questions that arise when imp
   * [With a real data set](#With-a-real-data-set)
 
 ## Motivation
-I enjoy writing about statistics and math topics! It’s so interesting to learn about how these concepts apply to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
+I enjoy writing about statistics and math topics! It’s so  riveting to learn about how these concepts  are appled to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
 ## import libraries
 ```
 #Import library
@@ -23,7 +23,7 @@ from torch.autograd import Variable
 import pandas as pd
 ```
 ## Data
-At first, I create a dataset with three independent and one dependent variables to fit a regression model using Pytorch. I do this in two ways:
+At first, I create a dataset with three independent variables and one dependent variable to fit a regression model using Pytorch. I do this in two ways:
 ```
 X1 = np.random.normal(0, 1, size=(100, 1)) 
 X2 = np.random.normal(0, 1, size=(100, 1)) 
@@ -82,7 +82,7 @@ for epoch in range(500):
     Optimizer.step() 
     print('epoch {}, loss function {}'.format(epoch, loss.item()))
 ```
-Now, we can test the trained model:
+Now, we can test the trained model as follows:
 ```
 X_Test  = torch.normal(0, 1, (1, 3))
 y1 = torch.matmul(X_Test, torch.tensor([1.0, 2, 4])) + 3 + torch.normal(0, 1.0,torch.Size([1]))
@@ -90,7 +90,7 @@ Y_Test = y1.reshape((-1, 1))
 yhat = linear_model(X_Test)
 criterion(yhat, Y_Test)
 ```
-Well, I think many questions come for beginners after going through these steps, for example, what is SGD, lr, epoch and ... ? For answered some of these questions, I start with the GD algorithm. GD stands for Gradient Descent algorithm that is the common optimization algorithm in deep learning.
+Well, it is possible that some questions or ambiguities might be posed here, especially for beginners after going through these steps. For starters, what is SGD, lr, epoch and ... ? For answering some of these questions, I start with the GD algorithm. GD stands for Gradient Descent algorithm that is the common optimization algorithm in deep learning.
  ### Gradient Descent Algorithm
  Consider the followng optimization problem:
  ```math
@@ -111,10 +111,9 @@ step sizes $t_k$ chosen to be fixed and small. For solving this optimization pro
 
 * return $\boldsymbol{\theta}^{(k)}$ ;
 
+By considering this optimization problem, think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier. Did you find any relation?
 
-By considering this optimization problem,  think about the relation between ```k``` and ```t``` with ```epoch``` and ```lr``` in the Python code mentioned earlier. Did you find any relation?
-
-Ok, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
+All right, it seems that we need to apply the GD algorithm to the above regression problem. As we all know, we need to find $\hat{y}=\hat{\theta_0}+\hat{\theta_1}x_1+\hat{\theta_2}x_2+\hat{\theta_3}x_3 $ such that:
 ```math
 L(\hat{\theta_0},\hat{\theta_1},\hat{\theta_2},\hat{\theta_3}) =\frac{1}{n} \sum_{i=1}^n(\hat{y}_i-y_i)^2=\min_{\boldsymbol{\theta}}L(\theta_0,\theta_1,\theta_2,\theta_3)
 ``` 
@@ -132,7 +131,7 @@ Then, continue the following recursive algorithm until convergence:
 \boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
 ```
 where c is orbitrary constant.
-Now with these explanations we can convert GD algorithm into code. At first we need create a data set once again:
+Now, with these explanations in mind, we can convert GD algorithm into code. At first, we need to create a data set once again:
 
 
 ```
@@ -154,9 +153,9 @@ for epoch in range(epochs):
     grad = (2/X.shape[0])*(X.T).dot(e)
     par = par - lr*grad
 ```
-Let’s go back to the part where we execute the model with PyTorch and read it once more. I believe that the content has become clearer now.
+Let’s go back to the part where we ran the model with PyTorch and read it once more. I believe that the content has become clearer now.
 
-For this short article, I studied and used the following works. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. Also, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I will be glad if you add something to it.
+For this short article, I studied and used the following sources. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. In addition, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I would be more than glad if you could add something to it.
 
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)

@@ -155,7 +155,7 @@ for epoch in range(epochs):
 ```
 Let’s go back to the part where we ran the model with PyTorch and read it once more. I believe that the content has become clearer now.
 
-For this short article, I studied and used the following sources. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list. In addition, I have created a [repository on GitHub](https://github.com/Xaleed/Pytorch) for more complex cases such as logistic regression, time series, LSTM, and etc. I would be more than glad if you could add something to it.
+For this short article, I studied and used the following sources. I tried to write about only some simple concepts. You can find many useful and important concepts in the following list.
 
 * [Stochastic Gradient Descent](https://www.stat.cmu.edu/~ryantibs/convexopt/lectures/stochastic-gd.pdf)
 * [Mathematical Foundations of Machine Learning](https://skim.math.msstate.edu/LectureNotes/Machine_Learning_Lecture.pdf) (chapter 4)

@@ -9,6 +9,7 @@ Admittedly, in order to find answers to all the questions that arise when implem
   * [Gradient Descent Algorithm](#Gradient-Descent-Algorithm)
 * [Logistic Regression](#Logistic-Regression)
   * [With a created data set](#With-a-created-data-set)
+     * [Stochastic Gradient Descent](#Stochastic-Gradient-Descent)
   * [With a real data set](#With-a-real-data-set)
 
 ## Motivation
@@ -167,6 +168,64 @@ For this short article, I studied and used the following sources. I tried to wri
 * [Differences Between Epoch, Batch, and Mini-batch](https://www.baeldung.com/cs/epoch-vs-batch-vs-mini-batch)
 * [Difference Between a Batch and an Epoch in a Neural Network](https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/)
  ## Logistic Regression
-  ### With a created data set
-  ### With a real data set
+ ### With a created data set
+ ```
+import torch
+from torch.utils.data import DataLoader
+import matplotlib.pyplot as plt
+from torch import nn
+from torch.autograd import Variable
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from torch.utils.data import Dataset
+```
+define logistic model:
+```
+class LogisticRegression(torch.nn.Module):    
+    # build the constructor
+    def __init__(self, n_inputs, n_outputs):
+        super(LogisticRegression, self).__init__()
+        self.linear = torch.nn.Linear(n_inputs, n_outputs)
+    # make predictions
+    def forward(self, x):
+        y_pred = torch.sigmoid(self.linear(x))
+        return y_pred
+log_regr = LogisticRegression(5, 1)
+```
+creating a data set:
+```
+X = torch.normal(0, 1, (10000, 5))
+y = log_regr(X)
+a = torch.empty(10000, 1).uniform_(0, 1)  # generate a uniform random matrix with range [0, 1]
+Y = torch.max(y.round().detach() , torch.bernoulli(a))
+print(Y)
+print((y.round().detach()))
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.30)
+```
+defining the optimizer and loss function:
+```
+optimizer = torch.optim.SGD(log_regr.parameters(), lr=0.0001)
+criterion = torch.nn.BCELoss()
+```
+GD algorithm:
+```
+for epoch in range(100):
+    y_pred = lr(X_train)
+    loss = criterion(y_pred, y_train) 
+    loss.backward()
+    optimizer.step()
+    optimizer.zero_grad()
+    print(f'epoch: {epoch+1}, loss = {loss.item():.4f}')
+```
+#### Stochastic Gradient Descent
+ Consider the followng optimization problem:
+ ```math
+ \underset{\boldsymbol{\theta}}{min}\frac{1}{n}\sum_{i=1}^{n}f_{i}(\boldsymbol{\theta})
+ ```
+ As $$ \nabla \sum_{i=1}^{n}f_{i}(\boldsymbol{\theta}) = \sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}),$$  gradient descent would repeat:
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
+```
+### With a real data set
+
   Consider per-minute data on dogecoin transactions for three months. In this section, we applied the logistic regression model based on Stochastic gradient descent using the PyTorch library.

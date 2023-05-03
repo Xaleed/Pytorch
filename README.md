@@ -10,6 +10,7 @@ Admittedly, in order to find answers to all the questions that arise when implem
 * [Logistic Regression](#Logistic-Regression)
   * [With a created data set](#With-a-created-data-set)
      * [Stochastic Gradient Descent](#Stochastic-Gradient-Descent)
+     * [mini-batch stochastic gradient descent](#mini-batch-stochastic-gradient-descent)
   * [With a real data set](#With-a-real-data-set)
 
 ## Motivation
@@ -179,6 +180,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 ```
+
 define logistic model:
 ```
 class LogisticRegression(torch.nn.Module):    
@@ -222,10 +224,21 @@ for epoch in range(100):
  ```math
  \underset{\boldsymbol{\theta}}{min}\frac{1}{n}\sum_{i=1}^{n}f_{i}(\boldsymbol{\theta})
  ```
- As $$ \nabla \sum_{i=1}^{n}f_{i}(\boldsymbol{\theta}) = \sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}),$$  gradient descent would repeat:
+ As 
+ $$ \nabla \sum_{i=1}^{n}f_{i}(\boldsymbol{\theta}) = \sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}),$$ 
+stochastic gradient descent repeats:
 ```math
-\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}\frac{1}{n}\sum_{i=1}^{n}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}.\nabla f_{i_k}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
 ```
+where $i_k \in \{1,...,m\}$ is some chosen index at iteration $k$:
+* Randomized rule:choose $i_k \in \{1,2, ..., m\}$ uniformly  at random.
+*cyclic rule: choose $i_k = 1,2, ..., m, 1,2,..., m, ...$
+#### mini-batch stochastic gradient descent
+we should repeat:
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-t_{k}\frac{1}{b}\sum_{i\in I_k}\nabla f_{i}(\boldsymbol{\theta}^{(k-1)}), \,\,\,\, k = 1,2,3,...
+```
+where $I_k$ is chosen randomly.
 ### With a real data set
 
   Consider per-minute data on dogecoin transactions for three months. In this section, we applied the logistic regression model based on Stochastic gradient descent using the PyTorch library.

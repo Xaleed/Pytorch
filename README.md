@@ -219,6 +219,13 @@ for epoch in range(100):
     optimizer.zero_grad()
     print(f'epoch: {epoch+1}, loss = {loss.item():.4f}')
 ```
+```math
+with torch.no_grad():
+    y_predicted = log_regr(X_test)
+    y_predicted_cls = y_predicted.round()
+    acc = y_predicted_cls.eq(y_test).sum() / float(y_test.shape[0])
+    print(f'accuracy: {acc.item():.4f}')
+```
 #### Stochastic Gradient Descent
  Consider the followng optimization problem:
  ```math

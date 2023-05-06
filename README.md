@@ -219,7 +219,8 @@ for epoch in range(100):
     optimizer.zero_grad()
     print(f'epoch: {epoch+1}, loss = {loss.item():.4f}')
 ```
-```math
+CALCULATING ACCURACY:
+```
 with torch.no_grad():
     y_predicted = log_regr(X_test)
     y_predicted_cls = y_predicted.round()
@@ -239,7 +240,7 @@ stochastic gradient descent repeats:
 ```
 where $i_k \in \{1,...,m\}$ is some chosen index at iteration $k$:
 * Randomized rule:choose $i_k \in \{1,2, ..., m\}$ uniformly  at random.
-*cyclic rule: choose $i_k = 1,2, ..., m, 1,2,..., m, ...$
+* cyclic rule: choose $i_k = 1,2, ..., m, 1,2,..., m, ...$
 #### mini-batch stochastic gradient descent
 we should repeat:
 ```math

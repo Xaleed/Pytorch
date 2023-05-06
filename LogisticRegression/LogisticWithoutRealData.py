@@ -5,8 +5,8 @@
 
 
 import torch
-import torchvision.transforms as transforms
-from torchvision import datasets
+#import torchvision.transforms as transforms
+#from torchvision import datasets
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
 from torch import nn
@@ -16,6 +16,7 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 
 #
+
 
 
 # In[178]:
@@ -31,48 +32,16 @@ class LogisticRegression(torch.nn.Module):
         y_pred = torch.sigmoid(self.linear(x))
         return y_pred
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[179]:
-
-
-loss
-
-
-# # creat dataset
-
-# In[223]:
-
-
-X = torch.normal(0, 1, (10000, 5))
-
 log_regr = LogisticRegression(5, 1)
+# %%
+X = torch.normal(0, 1, (10000, 5))
 y = log_regr(X)
 a = torch.empty(10000, 1).uniform_(0, 1)  # generate a uniform random matrix with range [0, 1]
 Y = torch.max(y.round().detach() , torch.bernoulli(a))
-print(sum(Y))
-print(sum(y.round().detach()))
+print(Y)
+print((y.round().detach()))
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.30)
-
-
-# In[251]:
-
-
-n_inputs = 5 # makes a 1D vector of 784
-n_outputs = 1
-lr = LogisticRegression(n_inputs, n_outputs)
-
+# %%
 # defining the optimizer
 optimizer = torch.optim.SGD(log_regr.parameters(), lr=0.0001)
 # defining Cross-Entropy loss
@@ -83,7 +52,7 @@ criterion = torch.nn.BCELoss()
 
 
 for epoch in range(100):
-    y_pred = lr(X_train)
+    y_pred = log_regr(X_train)
     loss = criterion(y_pred, y_train) 
     loss.backward()
     optimizer.step()
@@ -93,18 +62,23 @@ for epoch in range(100):
 
 
 # In[254]:
-
-
 with torch.no_grad():
-    y_predicted = lr(X_test)
+    y_predicted = log_regr(X_test)
     y_predicted_cls = y_predicted.round()
     acc = y_predicted_cls.eq(y_test).sum() / float(y_test.shape[0])
     print(f'accuracy: {acc.item():.4f}')
-
+# %%
+X_test
+# %%
+y_predicted
+# %%
+y_predicted_cls
 
 # In[255]:
-
-
+y_predicted_cls.eq(y_test).sum()
+# %%
+y_test
+# %%
 #classification report
 from sklearn.metrics import classification_report
 print(classification_report(y_test, y_predicted_cls))
@@ -154,7 +128,7 @@ print("Target shape:", y.shape)
 # In[259]:
 
 
-n_inputs = 5 # makes a 1D vector of 784
+n_inputs = 5
 n_outputs = 1
 log_regr = LogisticRegression(n_inputs, n_outputs)
 

@@ -10,6 +10,7 @@ Admittedly, in order to find answers to all the questions that arise when implem
 * [Logistic Regression](#Logistic-Regression)
   * [With a created data set](#With-a-created-data-set)
   * [With a real data set](#With-a-real-data-set)
+* [Examples from linkedin](#Examples-from-linkedin)
 
 ## Motivation
 I enjoy writing about statistics and math topics! It’s so  riveting to learn about how these concepts  are appled to the real world and how they can be used to solve problems. When I write about these topics, it gives me the motivation to keep learning and exploring new ideas.
@@ -169,4 +170,6 @@ For this short article, I studied and used the following sources. I tried to wri
  ## Logistic Regression
   ### With a created data set
   ### With a real data set
+## Examples from linkedin
+You can see the source of this example from this [link](https://www.linkedin.com/feed/update/urn:li:activity:7080475464179277824/).
   

@@ -142,7 +142,7 @@ for epoch in range(epochs):
     acc.append(accuracy)
     print('Epoch: {}. Loss: {}. Accuracy: {}'.format(epoch, loss, accuracy))
 # %%
-#if batch_size = 10
+#if batch_size = 1
 Loss = []
 acc = []
 epochs = 430

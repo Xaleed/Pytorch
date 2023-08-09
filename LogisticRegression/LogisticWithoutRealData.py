@@ -35,12 +35,15 @@ class LogisticRegression(torch.nn.Module):
 log_regr = LogisticRegression(5, 1)
 # %%
 X = torch.normal(0, 1, (10000, 5))
+print(X)
 y = log_regr(X)
 a = torch.empty(10000, 1).uniform_(0, 1)  # generate a uniform random matrix with range [0, 1]
 Y = torch.max(y.round().detach() , torch.bernoulli(a))
-print(Y)
+print(y)
 print((y.round().detach()))
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.30)
+# %%
+sum(Y)/len(Y)
 # %%
 # defining the optimizer
 optimizer = torch.optim.SGD(log_regr.parameters(), lr=0.0001)
@@ -110,7 +113,8 @@ class SequenceDataset(Dataset):
 
 
 # In[258]:
-
+2**132
+# %%
 
 batch_size = len(y_train)
 train_dataset = SequenceDataset(X_train, y_train)

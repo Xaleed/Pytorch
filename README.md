@@ -12,6 +12,7 @@ Admittedly, in order to find answers to all the questions that arise when implem
      * [Stochastic Gradient Descent](#Stochastic-Gradient-Descent)
      * [mini-batch stochastic gradient descent](#mini-batch-stochastic-gradient-descent)
   * [With a real data set](#With-a-real-data-set)
+* [Learning PyTorch with Examples](#Learning-PyTorch-with-Examples)
 * [Examples from linkedin](#Examples-from-linkedin)
 
 ## Motivation
@@ -171,7 +172,7 @@ For this short article, I studied and used the following sources. I tried to wri
 * [Difference Between a Batch and an Epoch in a Neural Network](https://machinelearningmastery.com/difference-between-a-batch-and-an-epoch/)
  ## Logistic Regression
  ### With a created data set
- ```
+```
 import torch
 from torch.utils.data import DataLoader
 import matplotlib.pyplot as plt
@@ -249,6 +250,57 @@ we should repeat:
 ```
 where $I_k$ is chosen randomly.
 ### With a real data set
+## Learning PyTorch with Examples
+This section is exactly what is in this [link](https://pytorch.org/tutorials/beginner/pytorch_with_examples.html).
+Create random input and output data
+```
+x = np.linspace(-math.pi, math.pi, 2000)
+y = np.sin(x)
+```
+Consider the following prediction
+```math
+y_{pred} = \theta_0 + \theta_1 X + \theta_2 X^2 + \theta_3 X^3
+```
+and the foollowing loss function
+```math
+L=\sum (y-y_{pred})^2
+```
+Now, we apply the following algorithm to the data
+```math
+\boldsymbol{\theta}^{(k)}=\boldsymbol{\theta}^{(k-1)}-lr \frac{\partial L}{\partial\boldsymbol{\theta}^{(k-1)}},\,\,\,\,\,\,\,\,k=1,2,3,... \,\,\,\,\,\,\,and \,\,\,\,\,\,\,\boldsymbol{\theta}^{(0)} = c
+```
+```
+a = np.random.randn()
+b = np.random.randn()
+c = np.random.randn()
+d = np.random.randn()
+learning_rate = 1e-6
+for t in range(20000):
+    # Forward pass: compute predicted y
+    # y = a + b x + c x^2 + d x^3
+    y_pred = a + b * x + c * x ** 2 + d * x ** 3
+
+    # Compute and print loss
+    loss = np.square(y_pred - y).sum()
+    if t % 100 == 99:
+        print(t, loss)
+
+    # Backprop to compute gradients of a, b, c, d with respect to loss
+    grad_y_pred = 2.0 * (y_pred - y)
+    grad_a = grad_y_pred.sum()
+    grad_b = (grad_y_pred * x).sum()
+    grad_c = (grad_y_pred * x ** 2).sum()
+    grad_d = (grad_y_pred * x ** 3).sum()
+
+    # Update weights
+    a -= learning_rate * grad_a
+    b -= learning_rate * grad_b
+    c -= learning_rate * grad_c
+    d -= learning_rate * grad_d
+
+print(f'Result: y = {a} + {b} x + {c} x^2 + {d} x^3')
+```
+
 ## Examples from linkedin
 You can see the source of this example from this [link](https://www.linkedin.com/feed/update/urn:li:activity:7080475464179277824/).
 
